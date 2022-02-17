@@ -10,10 +10,11 @@
     <p>Designer: {{ wallet.designer }}</p>
     <p>Color: {{ wallet.color }}</p>
     <p>Price: {{ wallet.price }}</p>
-  </div>
+
   <div class="card-action">
-    <a href="{% url 'wallets_update' wallet.id %}">Edit</a>
-    <a href="{% url 'wallets_delete' wallet.id %}">Delete</a>
+      <a href="{% url 'wallets_update' wallet.id %}">Edit</a>
+      <a href="{% url 'wallets_delete' wallet.id %}">Delete</a>
+    </div>
   </div>
 </div>
 

@@ -1,5 +1,5 @@
 body {
-    background-color: aqua;
+    background-color: rgb(200, 210, 210);
     display: flex;
     min-height: 100vh;
     flex-direction: column;

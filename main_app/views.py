@@ -51,6 +51,10 @@ def wallets_detail(request, wallet_id):
     wallet = Wallet.objects.get(id=wallet_id)
     return render(request, 'wallets/detail.html', {'wallet': wallet})
 
+def assoc_wallet(request, purse_id, wallet_id):
+    Purse.objects.get(id=purse_id).wallets.add(wallet_id)
+    return redirect('purses_detail', purse_id=purse_id)
+
 class WalletCreate(CreateView):
     model = Wallet
     fields = '__all__'
