@@ -1,0 +1,18 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<h1>Wallet List</h1>
+
+{% for wallet in wallets %}
+<div class="card">
+    <a href="{% url 'wallets_detail' wallet.id %}" /> 
+  <div class="card-content">
+    <span class="card-title">{{ wallet.name }}</span>
+    <p>Designer: {{ wallet.designer }}</p>
+    <p>Color: {{ wallet.color }}</p>
+    <p>Price: {{ wallet.price }}</p>
+  </div>
+</a>
+</div>
+{% endfor %} {% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<h1>Wallet Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ wallet.name }}</span>
+    <p>Designer: {{ wallet.designer }}</p>
+    <p>Color: {{ wallet.color }}</p>
+    <p>Price: {{ wallet.price }}</p>
+  </div>
+  <div class="card-action">
+    <a href="{% url 'wallets_update' wallet.id %}">Edit</a>
+    <a href="{% url 'wallets_delete' wallet.id %}">Delete</a>
+  </div>
+</div>
+
+{% endblock %}

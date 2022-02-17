@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Purse Collector</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <header class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper">
+          <ul>
+            <li>
+              <a href="/" class="left brand-logo">&nbsp;&nbsp;PurseCollector</a>
+            </li>
+          </ul>
+          <ul class="right">
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'purses_create' %}">Add A Purse</a></li>
+            <li><a href="{% url 'purses_index' %}">View All My Purses</a></li>
+            <li><a href="{% url 'wallets_create' %}">Add A Wallet</a></li>
+            <li><a href="{% url 'wallets_index' %}">View All My Wallets</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="container">{% block content %} {% endblock %}</main>
+    <footer class="page-footer">
+      <div class="right">
+        All Rights Reserved, &copy; 2022 Purse Collector &nbsp;
+      </div>
+    </footer>
+  </body>
+</html>
