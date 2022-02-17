@@ -20,17 +20,22 @@ def purses_index(request):
 
 def purses_detail(request, purse_id):
     purse = Purse.objects.get(id=purse_id)
-    return render(request, 'purses/detail.html', {'purse': purse})
+    wallets_purse_doesnt_have = Wallet.objects.exclude(
+        id__in = purse.wallets.all().values_list('id'))
+    return render(request, 'purses/detail.html', {
+        'purse': purse,
+        'wallets': wallets_purse_doesnt_have
+    })
 
 
 class PurseCreate(CreateView):
     model = Purse
-    fields = '__all__'
+    fields = ('brand', 'style', 'color', 'price')
 
 
 class PurseUpdate(UpdateView):
     model = Purse
-    fields = '__all__'
+    fields = ('brand', 'style', 'color', 'price')
 
 
 class PurseDelete(DeleteView):
