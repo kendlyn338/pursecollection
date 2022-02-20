@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Purse, Wallet
+from .models import Purse, Wallet, Photo
+import uuid
+import boto3
+
+S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
+BUCKET = 'pursecollection'
 
 # Create your views here.
 
@@ -54,6 +59,26 @@ def wallets_detail(request, wallet_id):
 def assoc_wallet(request, purse_id, wallet_id):
     Purse.objects.get(id=purse_id).wallets.add(wallet_id)
     return redirect('purses_detail', purse_id=purse_id)
+
+
+def add_photo(request, purse_id):
+    photo_file = request.FILES.get('photo-file')
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + \
+             photo_file.name[photo_file.name.rfind('.')]
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            photo = Photo(url=url, purse_id=purse_id)
+            photo.save()
+        except Exception as error:
+            print('*****************')
+            print('An error has occurred with s3:')
+            print(error)
+            print('*****************')
+    return redirect('purses_detail', purse_id=purse_id)
+
 
 class WalletCreate(CreateView):
     model = Wallet

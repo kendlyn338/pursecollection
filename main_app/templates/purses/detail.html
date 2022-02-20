@@ -13,16 +13,29 @@
         <p>Style: {{ purse.style }}</p>
         <p>Color: {{ purse.color }}</p>
         <p>Price: {{ purse.price }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'purses_update' purse.id %}">Edit</a>
+        <a href="{% url 'purses_delete' purse.id %}">Delete</a>
+      </div>
     </div>
-    <div class="card-action">
-    <a href="{% url 'purses_update' purse.id %}">Edit</a>
-    <a href="{% url 'purses_delete' purse.id %}">Delete</a>
-  </div>
-</div>
-<hr />
+    {% for photo in purse.photo_set.all %}
+    <img class="responsive-img card-panel" src="{{photo.url}}" alt="{{ purse.name }}">
+    {% empty %}
+    <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+    {% endfor %}
+    <form action="{% url 'add_photo' purse.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+      {% csrf_token %}
+      <input type="file" name="photo-file" />
+      <br /><br />
+      <input type="submit" class="btn green" value="Upload Photo" />
+    </form>
+
+</div>   
+<hr /> 
 <div class="row">
   <div class="col s6">
-    <h3>{{ purse.name }}'s Wallets</h3>
+    <h3>{{ purse.name }}Wallets</h3>
     {% if purse.wallets.count %} 
     {% for wallet in purse.wallets.all %}
     <div class="card">
